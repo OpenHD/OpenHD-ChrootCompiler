@@ -37,5 +37,5 @@ jobs:
     - name: debug
       run: ls -a
     - name: configure
-      run: sudo ./build.sh ${{ matrix.TARGET }} ${{ matrix.TESTING }}
+      run: sudo bash build.sh ${{ matrix.TARGET }} ${{ matrix.TESTING }}
     
