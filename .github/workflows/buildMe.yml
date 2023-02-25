@@ -33,7 +33,7 @@ jobs:
     
     
     ### ONLY THIS RELEVANT FOR BUILDING ###
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: update
       run: sudo apt-get update
     - name: fix ci's
@@ -43,41 +43,5 @@ jobs:
     - name: dep
       run: sudo apt-get install -y unzip curl git qemu qemu-user-static binfmt-support
     - name: configure
-      run: sudo ./build.sh ${{ matrix.TARGET }} ${{ matrix.TESTING }}
-    - name: remove old image to make space
-      run: |
-        sudo rm -Rf -v ./work-jetson-nano-2gb-bionic/03-Preconfiguration/*
-        sudo rm -Rf -v ./work-jetson-nano-4gb-bionic/03-Preconfiguration/*
-        sudo rm -Rf -v ./work-pi-bullseye/03-Preconfiguration/*
-        sudo rm -Rf -v ./work-pi-legacy-bullseye/03-Preconfiguration/*
-    - name: magic
-      run: |
-        ls -a
-        sudo df -h
-        sudo mv ./deploy/*.img ./OpenHD-image-${{ matrix.TARGET }}-${{ matrix.DISTRO }}-${GITHUB_REF##*/}-${{ env.DT }}.img
-        echo "moved image"
-        sudo rm -rvf deploy*
-        sudo rm -rvf work*
-        sudo rm -Rf /usr/share/doc
-        sudo rm -Rf /home/linuxbrew
-        sudo rm -Rf /home/runner-admin
-        sudo rm -Rf /opt/hostedtoolcache
-        sudo rm -Rf /opt/microsoft
-        sudo rm -Rf /opt/hhvm
-        sudo apt autoremove -y
-        sudo df -h
-        
-    ########################################
-
-
-    - name: Compose release filename
-      # https://stackoverflow.com/questions/58033366/how-to-get-current-branch-within-github-actions
-      run: echo "artifact_name=OpenHD-image-${{ matrix.TARGET }}-${{ matrix.DISTRO }}-${GITHUB_REF##*/}-${{ env.DT }}" >> $GITHUB_ENV
-        
-    - name: Pack image for ${{ matrix.TARGET }}
-      uses: 'actions/upload-artifact@v2'
-      with:
-        name: "${{ env.artifact_name }}"
-        path: |
-          *.img
-          if-no-files-found: error
+      run: sudo cd ChrootCompilationTest && sudo ./build.sh ${{ matrix.TARGET }} ${{ matrix.TESTING }}
+    
