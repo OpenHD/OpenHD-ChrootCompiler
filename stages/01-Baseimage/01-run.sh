@@ -1,7 +1,7 @@
 # Extend Image Size
 pushd ${STAGE_WORK_DIR}
 
-if [[ "${OS}" == "raspbian" ]] || [[ "${OS}" == "raspbian-legacy" ]] ; then
+if [[ "${OS}" == "raspbian" ]] || [[ "${OS}" == "raspbian-legacy" ]] || [[ "${OS}" == "debian" ]] ; then
 
     #Makes the images flashable with raspberry pi imager
     log "Calculate difference between original Image and Wanted size (7GB)" 
