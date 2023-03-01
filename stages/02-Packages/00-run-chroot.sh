@@ -1,3 +1,5 @@
+#!/bin/bash -e
+
 echo "we've now entered a chroot environment, everything should be copied into /opt"
 cd /opt
 ls -a
