@@ -97,9 +97,10 @@ unmount_image(){
     
     MNT_DIR="${STAGE_WORK_DIR}/mnt"
     #LOOP_DEV="$(findmnt -nr -o source $MNT_DIR)"
-
+    if [ -d "${MNT_DIR}/opt/out" ]; then
     cp -rf "${MNT_DIR}/opt/out" "${STAGE_DIR}/../../workdir"
-    
+    fi
+
     if mount | grep -q "$MNT_DIR/boot"; then
         umount -l "$MNT_DIR/boot"
     fi
