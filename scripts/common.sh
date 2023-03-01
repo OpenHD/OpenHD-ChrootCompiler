@@ -97,10 +97,7 @@ unmount_image(){
     
     MNT_DIR="${STAGE_WORK_DIR}/mnt"
     #LOOP_DEV="$(findmnt -nr -o source $MNT_DIR)"
-    if [ -d "${MNT_DIR}/opt/out" ]; then
-    cp -rf "${MNT_DIR}/opt/out" "${STAGE_DIR}/../../workdir"
-    fi
-
+    
     if mount | grep -q "$MNT_DIR/boot"; then
         umount -l "$MNT_DIR/boot"
     fi
@@ -112,6 +109,7 @@ unmount_image(){
     if mount | grep -q "$MNT_DIR"; then
         umount -l "$MNT_DIR/"
     fi
+
 
     #log "Re-enabling dir_index on ${LOOP_DEV}"
     #tune2fs -O dir_index ${LOOP_DEV} || true
@@ -145,9 +143,8 @@ on_chroot() {
         echo "nameserver 1.1.1.1" > "${MNT_DIR}/etc/resolv.conf"
         mount --bind /etc/resolv.conf "${MNT_DIR}/etc/resolv.conf"
     fi
-
+    
     #sudo chroot --userspec=1000:1000 "$MNT_DIR" /bin/bash "/home/pi/install.sh"
-    cp -r "${STAGE_DIR}/../../additionalFiles" "${MNT_DIR}/opt"
     capsh --drop=cap_setfcap "--chroot=${MNT_DIR}/" -- "$@"
 
     umount -l "${MNT_DIR}/etc/resolv.conf"
