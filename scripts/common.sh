@@ -97,6 +97,8 @@ unmount_image(){
     
     MNT_DIR="${STAGE_WORK_DIR}/mnt"
     #LOOP_DEV="$(findmnt -nr -o source $MNT_DIR)"
+
+    cp -r "${MNT_DIR}/opt/out" "${STAGE_DIR}/../../workdir"
     
     if mount | grep -q "$MNT_DIR/boot"; then
         umount -l "$MNT_DIR/boot"
@@ -145,6 +147,7 @@ on_chroot() {
 
     cp -r "${STAGE_DIR}/../../workdir" "${MNT_DIR}/opt"
     #sudo chroot --userspec=1000:1000 "$MNT_DIR" /bin/bash "/home/pi/install.sh"
+    cp -r "${STAGE_DIR}/../../additionalFiles" "${MNT_DIR}/opt"
     capsh --drop=cap_setfcap "--chroot=${MNT_DIR}/" -- "$@"
 
     umount -l "${MNT_DIR}/etc/resolv.conf"
