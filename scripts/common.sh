@@ -99,7 +99,7 @@ unmount_image(){
     #LOOP_DEV="$(findmnt -nr -o source $MNT_DIR)"
     if [ -d "${MNT_DIR}/opt/out" ]; then
     echo "this file will be our package"
-    ls -a /opt/out
+    ls -a ${MNT_DIR}/opt/out
     cp -rf "${MNT_DIR}/opt/out" "${STAGE_DIR}/../../workdir"
     fi
 
