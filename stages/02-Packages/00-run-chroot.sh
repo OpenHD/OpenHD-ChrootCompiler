@@ -7,6 +7,6 @@ cd additionalFiles
 ls -a
 cd *
 ls -a
-bash build_chroot.sh
+bash ../build_chroot.sh
 echo "after building we can now push the contents outside the chroot"
 
