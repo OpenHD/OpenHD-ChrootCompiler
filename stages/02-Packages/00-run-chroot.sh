@@ -1,5 +1,6 @@
 #!/bin/bash -e
 
+echo ${TESTING}
 apt update
  if [[ "${OS}" == "debian" ]]; then
  #fix radxa's fuckup
