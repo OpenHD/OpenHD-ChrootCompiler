@@ -18,5 +18,6 @@ ls -a
 cd *
 ls -a
 bash build_chroot.sh
+ls -a
 echo "after building we can now push the contents outside the chroot"
 
