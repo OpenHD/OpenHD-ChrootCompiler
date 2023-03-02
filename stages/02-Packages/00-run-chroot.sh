@@ -7,7 +7,7 @@ apt update
  wget -O - apt.radxa.com/$DISTRO/public.key | sudo apt-key add - 
  sudo apt update
  sudo apt-mark hold linux-5.10-rock-5-latest
- sudo apt upgrade
+ sudo apt upgrade -y
  fi
 echo "we've now entered a chroot environment, everything should be copied into /opt"
 cd /opt
