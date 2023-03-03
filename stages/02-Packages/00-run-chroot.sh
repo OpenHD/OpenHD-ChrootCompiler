@@ -15,7 +15,6 @@ echo "we've now entered a chroot environment, everything should be copied into /
 cd /opt
 cd additionalFiles
 ls -a
-cd OpenHD
 bash build_chroot.sh
 echo "after building we can now push the contents outside the chroot"
 
