@@ -2,12 +2,9 @@
 
 echo ${TESTING}
 apt update
- if [[ "${OS}" == "debian" ]]; then
+ if [[ "${OS}" == "radxa-ubuntu" ]]; then
  #fix radxa's fuckup
- export DISTRO=bullseye-stable
- wget -O - apt.radxa.com/$DISTRO/public.key | sudo apt-key add - 
  sudo apt update
- sudo apt-mark hold linux-5.10-rock-5-latest
  sudo apt upgrade -y --allow-downgrades
  echo "everything is now setup for compiling"
  fi
