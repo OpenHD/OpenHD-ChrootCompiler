@@ -5,7 +5,6 @@ apt update
  if [[ "${OS}" == "radxa-ubuntu" ]]; then
  #fix radxa's fuckup
  sudo apt update
- sudo apt upgrade -y --allow-downgrades
  echo "everything is now setup for compiling"
  fi
 echo "we've now entered a chroot environment, everything should be copied into /opt"
