@@ -5,6 +5,7 @@ apt update
  if [[ "${OS}" == "radxa-ubuntu" ]]; then
  #fix radxa's fuckup
  sudo apt update
+ sudo apt-mark hold linux-5.10-rock-5-latest
  sudo apt upgrade -y --allow-downgrades
  echo "everything is now setup for compiling"
  fi
