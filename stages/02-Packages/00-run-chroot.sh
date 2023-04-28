@@ -2,7 +2,7 @@
 
 echo ${TESTING}
 apt update
- if [[ "${OS}" == "radxa-ubuntu" ]]; then
+ if [[ "${OS}" == "radxa-ubuntu" ]] || [[ "${OS}" == "radxa-debian" ]]; then
  #fix radxa's fuckup
  sudo apt update
  echo "everything is now setup for compiling"
