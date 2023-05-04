@@ -1,0 +1,10 @@
+BASE_IMAGE_URL="https://steamdeck-images.steamos.cloud/recovery/"
+BASE_IMAGE="steamdeck-recovery-4.img.bz2"
+BASE_IMAGE_SHA256="93a9c70866f6c1b51061cf1e7c6c822214d141c9cd398409eb61f3fd60835464"
+OS="arch"
+DISTRO="steamos"
+HAVE_BOOT_PART=false
+HAVE_CONF_PART=false
+BOOT_PART=1
+ROOT_PART=2
+BIT="64"
