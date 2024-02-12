@@ -2,6 +2,7 @@
 
 echo ${TESTING}
 apt update
+apt remove -y dkms
  if [[ "${OS}" == "radxa-debian-rock5a" ]] || [[ "${OS}" == "radxa-debian-rock5b" ]]; then
  #fix radxa's fuckup
  sudo apt update
