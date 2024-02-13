@@ -5,13 +5,7 @@ apt update
  if [[ "${OS}" == "radxa-debian-rock5a" ]] || [[ "${OS}" == "radxa-debian-rock5b" ]]; then
  #fix radxa's fuckup
  sudo apt update
- echo "everything is now setup for compiling"
- fi
- if [[ "${OS}" == "debian-X20" ]]; then
-   #  rm -Rf /etc/apt/sources.list.d/*
-   #  rm -Rf /etc/apt/sources.list
-   #  touch /etc/apt/sources.list
-    PLATFORM_PACKAGES_HOLD="r8125-dkms 8852bu-dkms 8852be-dkms task-rockchip radxa-system-config-rockchip linux-image-rock-5a linux-image-5.10.110-6-rockchip linux-image-5.10.110-11-rockchip"
+ PLATFORM_PACKAGES_HOLD="u-boot-radxa-zero3 radxa-system-config-common radxa-system-config-kernel-cmdline-ttyfiq0 radxa-firmware radxa-system-config-bullseye 8852be-dkms task-rockchip radxa-system-config-rockchip linux-image-radxa-cm3-rpi-cm4-io linux-headers-radxa-cm3-rpi-cm4-io linux-image-5.10.160-12-rk356x linux-headers-5.10.160-12-rk356x"
      echo "Holding back platform-specific packages..."
     for package in ${PLATFORM_PACKAGES_HOLD}; do
         echo "Holding ${package}..."
@@ -20,6 +14,12 @@ apt update
             echo "Failed to hold ${package}!"
         fi
     done
+ echo "everything is now setup for compiling"
+ fi
+ if [[ "${OS}" == "debian-X20" ]]; then
+   #  rm -Rf /etc/apt/sources.list.d/*
+   #  rm -Rf /etc/apt/sources.list
+   #  touch /etc/apt/sources.list
     apt update
     apt install -y swig gcc-arm*
     sudo sed -i 's/deb \[signed-by=\/usr\/share\/keyrings\/openhd-release-archive-keyring.gpg\] https:\/\/dl.cloudsmith.io\/public\/openhd\/release\/deb\/debian bullseye main/deb \[signed-by=\/usr\/share\/keyrings\/openhd-release-archive-keyring.gpg\] https:\/\/dl.cloudsmith.io\/public\/openhd\/dev-release\/deb\/debian sunxi main/' /etc/apt/sources.list.d/openhd-release.list
