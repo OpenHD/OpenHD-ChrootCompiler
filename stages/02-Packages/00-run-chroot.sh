@@ -5,7 +5,7 @@ apt update
  if [[ "${OS}" == "radxa-debian-rock5a" ]] || [[ "${OS}" == "radxa-debian-rock5b" ]]; then
  #fix radxa's fuckup
  sudo apt update
-    PLATFORM_PACKAGES_HOLD="r8125-dkms 8852bu-dkms 8852be-dkms task-rockchip radxa-system-config-rockchip linux-image-rock-5a linux-image-5.10.110-6-rockchip linux-image-5.10.110-11-rockchip"
+    PLATFORM_PACKAGES_HOLD="linux-image-rock-5b r8125-dkms 8852bu-dkms 8852be-dkms task-rockchip radxa-system-config-rockchip linux-image-rock-5a linux-image-5.10.110-6-rockchip linux-image-5.10.110-11-rockchip"
      echo "Holding back platform-specific packages..."
     for package in ${PLATFORM_PACKAGES_HOLD}; do
         echo "Holding ${package}..."
