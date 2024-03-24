@@ -1,6 +1,9 @@
 #!/bin/bash -e
 
 echo ${TESTING}
+
+ls -a /etc/apt/
+cat /etc/apt/
 apt update
  if [[ "${OS}" == "radxa-debian-rock5a" ]] || [[ "${OS}" == "radxa-debian-rock5b" ]]; then
  #fix radxa's fuckup
