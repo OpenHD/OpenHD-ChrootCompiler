@@ -1,5 +1,5 @@
-BASE_IMAGE_URL="https://developer.download.nvidia.com/embedded/L4T/"
-BASE_IMAGE="r35_Release_v5.0/JP513-xnx-sd-card-image.zip"
+BASE_IMAGE_URL="https://developer.download.nvidia.com/embedded/L4T/r35_Release_v5.0/"
+BASE_IMAGE="JP513-xnx-sd-card-image.zip"
 BASE_IMAGE_SHA256="dfdd2d22c8bc86e925803ca0b571ac168202521ad9bea4f439723c75f04420d4"
 OS="ubuntu"
 DISTRO="focal"
