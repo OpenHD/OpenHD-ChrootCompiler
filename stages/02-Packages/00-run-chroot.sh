@@ -2,8 +2,7 @@
 
 echo ${TESTING}
 
-ls -a /etc/apt/sources.list.d/
-cat /etc/apt/sources.list
+cat /etc/apt/sources.list.d/nvidia-l4t-apt-source.list
 apt update
  if [[ "${OS}" == "radxa-debian-rock5a" ]] || [[ "${OS}" == "radxa-debian-rock5b" ]]; then
  #fix radxa's fuckup
