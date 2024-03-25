@@ -3,7 +3,7 @@ if [ ! -e ../../emmc ]; then
     if [[ "${OS}" == radxa-debian-rock5a ]] || [[ "${OS}" == radxa-debian-rock5b ]];then
     WANTEDSIZE="6800000000"
     elif [[ "${OS}" == ubuntu ]]; then
-    echo "AGX"
+    echo "__________________________AGX__________________________-"
     WANTEDSIZE="18500000256"
     else
     WANTEDSIZE="5632000000"
