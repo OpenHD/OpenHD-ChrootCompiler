@@ -7,7 +7,10 @@ if [ ! -e ../../emmc ]; then
     WANTEDSIZE="5632000000"
     fi
 else
-WANTEDSIZE="9500000256"
+    if [[ "${OS}" != ubuntu ]] 
+    WANTEDSIZE="9500000256"
+    else
+    WANTEDSIZE="18500000256"
 echo "_______________________________________________________________________"
 echo "this is the emmc-model"
 echo "_______________________________________________________________________"
@@ -28,7 +31,7 @@ pushd ${STAGE_WORK_DIR}
     echo "bytes"
     ls -l
 
-if [[ "${OS}" != ubuntu-x86 ]] && [[ "${OS}" != debian-X20 ]] && [[ "${OS}" != ubuntu ]]; then
+if [[ "${OS}" != ubuntu-x86 ]] && [[ "${OS}" != debian-X20 ]]; then
 
     log "Create empty image" #this will be attached to the base image to increase the size of it
     dd if=/dev/zero of=temp.img bs=1 count=1 seek=$DIFFERENCE
