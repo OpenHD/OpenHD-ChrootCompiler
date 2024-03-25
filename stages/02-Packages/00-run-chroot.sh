@@ -2,9 +2,7 @@
 
 echo ${TESTING}
 
-cat /etc/apt/sources.list.d/nvidia-l4t-apt-source.list
-apt update
- if [[ "${OS}" == "radxa-debian-rock5a" ]] || [[ "${OS}" == "radxa-debian-rock5b" ]]; then
+if [[ "${OS}" == "radxa-debian-rock5a" ]] || [[ "${OS}" == "radxa-debian-rock5b" ]]; then
  #fix radxa's fuckup
  sudo apt update
     PLATFORM_PACKAGES_HOLD="linux-image-rock-5b radxa-system-config-rtk-btusb-dkms r8125-dkms 8852bu-dkms 8852be-dkms task-rockchip radxa-system-config-rockchip linux-image-rock-5a linux-image-5.10.110-6-rockchip linux-image-5.10.110-11-rockchip"
@@ -18,6 +16,7 @@ apt update
     done
  echo "everything is now setup for compiling"
  fi
+ if [ -f "/etc/apt/sources.list.d/nvidia-l4t-apt-source.list" ]; then sudo sed -i 's|deb https://repo.download.nvidia.com/jetson/<SOC> r35.5 main|deb https://repo.download.nvidia.com/jetson/t194 r35.5 main|' /etc/apt/sources.list.d/nvidia-l4t-apt-source.list; fi
  if [[ "${OS}" == "debian-X20" ]]; then
    #  rm -Rf /etc/apt/sources.list.d/*
    #  rm -Rf /etc/apt/sources.list
