@@ -7,10 +7,11 @@ if [ ! -e ../../emmc ]; then
     WANTEDSIZE="5632000000"
     fi
 else
-    if [[ "${OS}" != ubuntu ]] 
+    if [[ "${OS}" != ubuntu ]]; then
     WANTEDSIZE="9500000256"
     else
     WANTEDSIZE="18500000256"
+    fi
 echo "_______________________________________________________________________"
 echo "this is the emmc-model"
 echo "_______________________________________________________________________"
