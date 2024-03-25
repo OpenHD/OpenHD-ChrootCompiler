@@ -45,6 +45,7 @@ if [[ "${OS}" != ubuntu-x86 ]] && [[ "${OS}" != debian-X20 ]]; then
     echo -e "x\ne\nd\nn\n\n\n\n\nw\ny\n" | sudo gdisk IMAGE.img
     sudo parted -s IMAGE.img resizepart ${ROOT_PART} 100%
     sudo gdisk -l IMAGE.img
+    partprobe
     else
 
     log "fdisk magic to enlarge the main partition"
