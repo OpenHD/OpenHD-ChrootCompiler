@@ -1,17 +1,15 @@
 # Extend Image Size
-ls -a ../../
 if [ ! -e ../../emmc ]; then
     if [[ "${OS}" == radxa-debian-rock5a ]] || [[ "${OS}" == radxa-debian-rock5b ]];then
     WANTEDSIZE="6800000000"
+    elif [[ "${OS}" == ubuntu ]]; then
+    echo "AGX"
+    WANTEDSIZE="18500000256"
     else
     WANTEDSIZE="5632000000"
     fi
 else
-    if [[ "${OS}" != ubuntu ]]; then
-    WANTEDSIZE="9500000256"
-    else
-    WANTEDSIZE="18500000256"
-    fi
+WANTEDSIZE="9500000256"
 echo "_______________________________________________________________________"
 echo "this is the emmc-model"
 echo "_______________________________________________________________________"
