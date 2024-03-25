@@ -63,7 +63,7 @@ run_stage(){
     # Check wether to skip or not
     echo "-------------------------------------------------------"
     echo "--------------check-------------size-------------------"
-    tree
+    tree ../../
     df -h
     if [ ! -f "${STAGE_WORK_DIR}/SKIP" ]; then
         # mount the image for this stage
