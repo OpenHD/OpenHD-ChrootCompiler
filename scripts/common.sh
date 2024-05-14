@@ -67,6 +67,9 @@ mount_image () {
         echo "Disabling dir_index on ${LOOP_DEV}"
         tune2fs -O ^dir_index ${LOOP_DEV} || true
     fi
+    
+        echo "mount host dir"
+        ls -a /opt/
 
     if [[ "${HAVE_BOOT_PART}" == "true" ]]; then
         echo "mount the BOOT partition"
@@ -133,10 +136,6 @@ on_chroot() {
     if ! mount | grep -q "${MNT_DIR}/dev)"; then
         mount --bind /dev "${MNT_DIR}/dev"
     fi
-    echo "_____________________________"
-    mkdir "${MNT_DIR}/opt2"
-    mount --bind /opt "${MNT_DIR}/opt2"
-    echo "_____________________________"
 
     if ! mount | grep -q "${MNT_DIR}/dev/pts)"; then
         mount --bind /dev/pts "${MNT_DIR}/dev/pts"
