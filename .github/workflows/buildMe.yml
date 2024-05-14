@@ -78,6 +78,7 @@ jobs:
         sudo git clone https://github.com/OpenHD/OpenHD-ImageBuilder
         sudo mv OpenHD-ImageBuilder/images .
         sudo mv OpenHD-ImageBuilder/stages/01-Baseimage stages/
+        sudo rm -Rf OpenHD-ImageBuilder
     - name: configure
       run: sudo bash build.sh ${{ matrix.TARGET }} ${{ matrix.TESTING }}
     - name: debug

@@ -40,9 +40,10 @@ if [[ "${OS}" == "radxa-debian-rock5a" ]] || [[ "${OS}" == "radxa-debian-rock5b"
  fi
 
 echo "we've now entered a chroot environment, everything should be copied into /opt"
+echo "_____________________________________________________________________________"
 cd /opt
-cd additionalFiles
-bash build_chroot.sh
+# cd additionalFiles
+# bash build_chroot.sh
 echo "after building we can now push the contents outside the chroot"
 echo "___________________________________________________"
 echo ${OPENHD_VERSION} > /openhd_version2.txt
