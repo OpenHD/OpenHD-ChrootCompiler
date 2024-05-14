@@ -75,10 +75,10 @@ jobs:
       run: ls -a
     - name: update
       run: |
-        ls -a
         mkdir update
         git clone https://github.com/openhd/openhd-imagebuilder update
-        cp update/images/* images/
+        ls -a
+        mv update/images/* images/
     - name: configure
       run: sudo bash build.sh ${{ matrix.TARGET }} ${{ matrix.TESTING }}
     - name: debug
