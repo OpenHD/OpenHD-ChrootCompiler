@@ -152,6 +152,11 @@ on_chroot() {
     findmnt -n -o SOURCE /
     mkdir -p ${STAGE_DIR}/../../additionalFiles/
     findmnt -n -o SOURCE / > ${STAGE_DIR}/../../additionalFiles/mount.txt
+    echo "__________"
+    echo $pwd
+    echo "__________"
+    exit 1
+
     echo $pwd > ../../pwd1.txt
     cd ../../
     mkdir out
@@ -159,7 +164,6 @@ on_chroot() {
     echo $PWD
     echo $pwd > ../additionalFiles/pwd.txt
     cat ../additionalFiles/pwd.txt
-    exit 1
     cd ..
     cd $(cat pwd1.txt)
     cp -r "${STAGE_DIR}/../../additionalFiles" "${MNT_DIR}/opt"
