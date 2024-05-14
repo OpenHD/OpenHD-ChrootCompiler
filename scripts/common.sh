@@ -152,17 +152,11 @@ on_chroot() {
     findmnt -n -o SOURCE /
     mkdir -p ${STAGE_DIR}/../../additionalFiles/
     findmnt -n -o SOURCE / > ${STAGE_DIR}/../../additionalFiles/mount.txt
-    echo "__________"
-    echo "$PWD"
-    echo "__________"
-    exit 1
-
-    echo $pwd > ../../pwd1.txt
+    echo "$PWD" > ../../pwd1.txt
     cd ../../
     mkdir out
     cd out
-    echo $PWD
-    echo $pwd > ../additionalFiles/pwd.txt
+    echo "$PWD"  > ../additionalFiles/pwd.txt
     cat ../additionalFiles/pwd.txt
     cd ..
     cd $(cat pwd1.txt)
