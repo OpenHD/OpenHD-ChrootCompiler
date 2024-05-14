@@ -10,6 +10,7 @@ mount $HOST /host
 INDIR=$(cat /opt/additionalFiles/pwd.txt)
 OUTDIR="/host"$INDIR
 ln -s $OUTDIR /out
+rm -Rf /out/*
 
 if [[ "${OS}" == "radxa-debian-rock5a" ]] || [[ "${OS}" == "radxa-debian-rock5b" ]]; then
  #fix radxa's fuckup

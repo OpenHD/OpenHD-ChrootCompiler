@@ -159,6 +159,6 @@ for STAGE_DIR in "${BASE_DIR}/stages/"*; do
 done
 
 cd ${BASE_DIR}
-ls -a
-echo "_________"
+if [ -z "$(ls -A out 2>/dev/null)" ]; then exit 1; fi
+echo "---------------> done :)"
 log "End ${BASE_DIR}"
