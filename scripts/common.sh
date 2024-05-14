@@ -152,9 +152,7 @@ on_chroot() {
     findmnt -n -o SOURCE /
     mkdir -p ${STAGE_DIR}/../../additionalFiles/
     findmnt -n -o SOURCE / > ${STAGE_DIR}/../../additionalFiles/dir.txt
-    ls -a ../
-    exit 1
-
+    ls -a ${STAGE_DIR}/../../additionalFiles/
     cp -r "${STAGE_DIR}/../../additionalFiles" "${MNT_DIR}/opt"
     capsh --drop=cap_setfcap "--chroot=${MNT_DIR}/" -- "$@"
 
