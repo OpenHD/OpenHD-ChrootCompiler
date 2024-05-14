@@ -75,7 +75,6 @@ jobs:
         sudo mv OpenHD-ImageBuilder/images .
         sudo mv OpenHD-ImageBuilder/stages/01-Baseimage stages/
         sudo rm -Rf OpenHD-ImageBuilder
-        echo $PWD
     - name: configure
       run: sudo bash build.sh ${{ matrix.TARGET }} ${{ matrix.TESTING }}
     - name: debug

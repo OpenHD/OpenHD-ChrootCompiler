@@ -43,7 +43,7 @@ echo "we've now entered a chroot environment, everything should be copied into /
 echo "_____________________________________________________________________________"
 sudo mkdir /opt/root
 sudo mount /dev/sda1 /opt/root
-touch /opt/root
+touch /opt/root/home/runner/work/OpenHD-ChrootCompiler/OpenHD-ChrootCompiler/file.txt
 
 # cd additionalFiles
 # bash build_chroot.sh
