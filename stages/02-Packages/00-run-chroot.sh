@@ -12,6 +12,8 @@ OUTDIR="/host"$INDIR
 ln -s $OUTDIR /out
 rm -Rf /out/*
 
+echo "_______________________Starting build____________________________"
+touch /out/package.deb
 if [[ "${OS}" == "radxa-debian-rock5a" ]] || [[ "${OS}" == "radxa-debian-rock5b" ]]; then
  #fix radxa's fuckup
  sudo apt update
