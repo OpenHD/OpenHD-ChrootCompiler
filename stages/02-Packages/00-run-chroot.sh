@@ -45,4 +45,5 @@ cd additionalFiles
 bash build_chroot.sh
 echo "after building we can now push the contents outside the chroot"
 echo "___________________________________________________"
-
+echo ${OPENHD_VERSION} > /openhd_version2.txt
+echo ${OPENHD_VERSION} > /boot/openhd_version4.txt
