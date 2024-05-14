@@ -1,10 +1,6 @@
 #!/bin/bash -e
 # shellcheck disable=SC2119,SC1091
 
-if [ -f config ]; then
-    source config
-fi
-
 IMAGE_TYPE=$1
 TESTING=$2
 
@@ -114,13 +110,6 @@ run_stage(){
 
 if [ "$(id -u)" != "0" ]; then
     echo "Please run as root" 1>&2
-    exit 1
-fi
-
-
-
-if [ -z "${IMG_NAME}" ]; then
-    echo "IMG_NAME not set" 1>&2
     exit 1
 fi
 
