@@ -79,6 +79,4 @@ jobs:
       run: sudo bash build.sh ${{ matrix.TARGET }} ${{ matrix.TESTING }}
     - name: debug
       run: |
-        ls /opt/
-        tree /opt/
-    
+        ls /opt/    
