@@ -1,9 +1,0 @@
-BASE_IMAGE_URL="https://openhd-images.fra1.cdn.digitaloceanspaces.com/BaseImages"
-BASE_IMAGE="ArmbianRock5.img.xz"
-BASE_IMAGE_SHA256="7cce23a04e83f031ae390b1cd77a1c92b49b7e4aeff7ef2fa8715f41038754a6"
-OS="armbian"
-DISTRO="bullseye"
-HAVE_BOOT_PART=false
-HAVE_CONF_PART=false
-ROOT_PART=1
-BIT="64"
