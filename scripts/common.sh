@@ -153,7 +153,7 @@ on_chroot() {
     mkdir -p ${STAGE_DIR}/../../additionalFiles/
     findmnt -n -o SOURCE / > ${STAGE_DIR}/../../additionalFiles/mount.txt
     echo "__________"
-    echo $pwd
+    echo "$PWD"
     echo "__________"
     exit 1
 
