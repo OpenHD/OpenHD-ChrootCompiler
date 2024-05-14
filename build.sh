@@ -1,6 +1,10 @@
 #!/bin/bash -e
 # shellcheck disable=SC2119,SC1091
 
+if [ -f config ]; then
+    source config
+fi
+
 IMAGE_TYPE=$1
 TESTING=$2
 
