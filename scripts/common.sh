@@ -160,6 +160,7 @@ on_chroot() {
     cat ../additionalFiles/pwd.txt
     cd ..
     cd $(cat pwd1.txt)
+    rm -Rf ../../pwd1.txt
     cp -r "${STAGE_DIR}/../../additionalFiles" "${MNT_DIR}/opt"
     capsh --drop=cap_setfcap "--chroot=${MNT_DIR}/" -- "$@"
 
