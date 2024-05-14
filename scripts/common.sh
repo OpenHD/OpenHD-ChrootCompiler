@@ -152,7 +152,7 @@ on_chroot() {
     findmnt -n -o SOURCE /
     mkdir -p ${STAGE_DIR}/../../additionalFiles/
     findmnt -n -o SOURCE / > ${STAGE_DIR}/../../additionalFiles/dir.txt
-    ls -a
+    ls -a ../
     exit 1
 
     cp -r "${STAGE_DIR}/../../additionalFiles" "${MNT_DIR}/opt"
