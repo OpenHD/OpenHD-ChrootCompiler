@@ -161,7 +161,7 @@ for STAGE_DIR in "${BASE_DIR}/stages/"*; do
 done
 
 echo "__________"
-ls -a
+ls -a work-x20/mnt/
 echo "__________"
 
 cd ${BASE_DIR}
