@@ -43,25 +43,7 @@ echo "we've now entered a chroot environment, everything should be copied into /
 echo "_____________________________________________________________________________"
 sudo mkdir /host
 lsblk
-for partition in $(lsblk -rno NAME,TYPE | grep 'part$' | awk '{print "/dev/" $1}'); do
-  if ! mount | grep -q "$partition"; then
-    mount_point=$(mktemp -d)
-    mount "$partition" "$mount_point" &>/dev/null
-    if [ $? -eq 0 ]; then
-      if [ -f "$mount_point/host-is-here" ]; then
-          umount "$mount_point"
-          rmdir "$mount_point"
-          mkdir -p /host
-          mount "$partition" /host
-          echo "$partition is mounted to /host"
-          exit 0
-      fi
-      umount "$mount_point"
-    fi
-    rmdir "$mount_point"
-  fi
-done
-
+cat additionalFiles/dir.txt
 mount
 sudo touch /host/opt/file.txt
 
