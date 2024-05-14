@@ -70,6 +70,7 @@ mount_image () {
     
         echo "mount host dir"
         mkdir -p ${MNT_DIR}/host
+        ls -a
         ln -s . ${MNT_DIR}/host
 
     if [[ "${HAVE_BOOT_PART}" == "true" ]]; then
