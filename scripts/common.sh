@@ -69,7 +69,7 @@ mount_image () {
     fi
     
         echo "mount host dir"
-        ls -a /opt/
+        echo $PWD
 
     if [[ "${HAVE_BOOT_PART}" == "true" ]]; then
         echo "mount the BOOT partition"
