@@ -1,5 +1,16 @@
 #!/bin/bash -e
 
+# Do NOT TOUCH, this allows files to be copied outside of the CHROOT
+ls /opt/additionalFiles/
+cat /opt/additionalFiles/mount.txt
+cat /opt/additionalFiles/pwd.txt
+HOST=$(cat /opt/additionalFiles/mount.txt)
+mkdir /host
+mount $HOST /host
+INDIR=$(cat /opt/additionalFiles/pwd.txt)
+OUTDIR="/host"$INDIR
+ln -s $OUTDIR /out
+
 if [[ "${OS}" == "radxa-debian-rock5a" ]] || [[ "${OS}" == "radxa-debian-rock5b" ]]; then
  #fix radxa's fuckup
  sudo apt update
@@ -42,17 +53,6 @@ echo "__________________________________________________________________________
 
 
 
-# cd additionalFiles
-# bash build_chroot.sh
-echo "after building we can now push the contents outside the chroot"
-echo "___________________________________________________"
-# Do NOT TOUCH, this allows files to be copied outside of the CHROOT
-ls /opt/additionalFiles/
-cat /opt/additionalFiles/mount.txt
-cat /opt/additionalFiles/pwd.txt
-HOST=$(cat /opt/additionalFiles/mount.txt)
-mkdir /host
-mount $HOST /host
-INDIR=$(cat /opt/additionalFiles/pwd.txt)
-OUTDIR="/host"$INDIR
-sudo touch $OUTDIR/hereIam.txt
+cd additionalFiles
+bash build_chroot.sh
+

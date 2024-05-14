@@ -63,10 +63,12 @@ Example commands to run in chroot
 apt-get update
 apt-get install -y build-essential
 make
+cp *.deb /out
 ----
 
 Adjust the script as needed for your specific build and compilation tasks.
 
+To push files outside of Chroot, copy the file to the /out directory, it'll appear in the out folder of the host.
 == Additional Information
 
 For more details, visit the official repository at:
