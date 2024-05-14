@@ -156,6 +156,7 @@ on_chroot() {
     cd ../../
     mkdir out
     cd out
+    echo $PWD
     echo $pwd > ../additionalFiles/pwd.txt
     cat ../additionalFiles/pwd.txt
     exit 1
