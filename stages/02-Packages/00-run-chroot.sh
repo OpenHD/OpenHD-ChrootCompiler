@@ -44,8 +44,7 @@ echo "__________________________________________________________________________
 # sudo mkdir /opt/root
 # sudo mount /dev/sda1 /opt/root
 # touch /opt/root/home/runner/work/OpenHD-ChrootCompiler/OpenHD-ChrootCompiler/file.txt
-touch /opt/output.txt
-
+ls -a /
 # cd additionalFiles
 # bash build_chroot.sh
 echo "after building we can now push the contents outside the chroot"
