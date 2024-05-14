@@ -42,8 +42,8 @@ echo "__________________________________________________________________________
 sudo mkdir /host
 lsblk
 ls -a
-ls -a additionalFiles
-cat additionalFiles/dir.txt
+ls -a opt
+cat opt/dir.txt
 mount
 sudo touch /host/opt/file.txt
 
