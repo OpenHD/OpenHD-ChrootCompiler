@@ -160,23 +160,6 @@ for STAGE_DIR in "${BASE_DIR}/stages/"*; do
     fi
 done
 
-# rename the image according to the build date, the builder/openhd repo versions
-OPENHD_VERSION=$(cat ${WORK_DIR}/openhd_version.txt)
-if [ -f "${PREV_WORK_DIR}/IMAGE.img" ]; then
-    IMAGE_PATH_NAME="${DEPLOY_DIR}/${IMG_NAME}-${OPENHD_VERSION}-${IMAGE_TYPE}.img"
-    log ""
-    log "======================================================"
-    log "Deploy image to: ${IMAGE_PATH_NAME}"
-    df -h
-    mkdir -p "${DEPLOY_DIR}" || true
-    df -h
-    ls -l --block-size=M ${PREV_WORK_DIR}/*.img
-    mv ${PREV_WORK_DIR}/*.img ${DEPLOY_DIR}
-    rm -Rf ${PREV_WORK_DIR}
-    cd ${DEPLOY_DIR}
-    df -h
-fi
-
 cd ${BASE_DIR}
 
 log "End ${BASE_DIR}"
