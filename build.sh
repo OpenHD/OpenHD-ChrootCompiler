@@ -10,7 +10,6 @@ if [[ "${IMAGE_TYPE}" == "" ]]; then
     echo "Target boards:"
     echo ""
     ls -1 images/
-    line
     echo ""
     exit 1
 fi
@@ -23,7 +22,6 @@ fi
 source ./images/${IMAGE_TYPE}
 
 echo ""
-line
 
 
 run_stage(){
