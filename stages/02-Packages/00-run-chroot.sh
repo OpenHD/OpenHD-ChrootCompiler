@@ -39,10 +39,13 @@
 
 echo "we've now entered a chroot environment, everything should be copied into /opt"
 echo "_____________________________________________________________________________"
-HOSTDIR=$(cat opt/additionalFiles/dir.txt)
+HOST=$(cat opt/additionalFiles/mount.txt)
 mkdir /host
-mount $HOSTDIR /host
-sudo touch /host/opt/file.txt
+mount $HOST /host
+INDIR=$(cat opt/additionalFiles/pwd.txt)
+OUTDIR="/host/"+$INDIR
+ln -s $OUTDIR /out
+touch /out/hereIam.txt
 
 
 # cd additionalFiles
