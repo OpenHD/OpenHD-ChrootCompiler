@@ -77,6 +77,3 @@ jobs:
         sudo rm -Rf OpenHD-ImageBuilder
     - name: configure
       run: sudo bash build.sh ${{ matrix.TARGET }} ${{ matrix.TESTING }}
-    - name: debug
-      run: |
-        tree  
