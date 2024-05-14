@@ -1,1 +1,73 @@
-'initial tests
+= ChrootCompiler
+
+The ChrootCompiler is a tool designed to compile software directly on images executed in Chroot. It facilitates direct emulation of various architectures and libraries with minimal setup.
+
+== Features
+
+- Directly compile software within Chroot environments
+- Emulate different architectures and libraries effortlessly
+- Simplify the setup process for building and compiling software
+
+== Usage
+
+=== Preparation
+
+First, clone the ChrootCompiler repository and set up the necessary files:
+
+git clone https://github.com/OpenHD/OpenHD-ChrootCompiler
+mkdir -p OpenHD-ChrootCompiler/additionalFiles
+cp YOURFILES OpenHD-ChrootCompiler/additionalFiles/
+echo $CLOUDSMITH_API_KEY > OpenHD-ChrootCompiler/additionalFiles/cloudsmith_api_key.txt
+touch build_chroot.sh OpenHD-ChrootCompiler/additionalFiles/
+
+- Replace `YOURFILES` with the files you need to include.
+- Ensure you have your `CLOUDSMITH_API_KEY` ready and place it in the `additionalFiles` directory.
+
+=== Building
+
+Update your system and install the required dependencies:
+
+sudo apt update
+sudo bash install_dep.sh
+
+Then, run the build script with the necessary parameters:
+
+sudo bash ./build.sh x20 $API_KEY DISTRO FLAVOR
+
+
+- `x20` is an example parameter for the script.
+- Replace `$API_KEY` with your actual API key.
+- Specify the `DISTRO` and `FLAVOR` according to your needs.
+
+=== Executing Commands in Chroot
+
+Any commands listed in the `build_chroot.sh` file will be executed within the Chroot environment when the tool is run. Ensure that your `build_chroot.sh` script is properly configured and placed in the `additionalFiles` directory.
+
+== Example `build_chroot.sh`
+
+Here is an example of what your `build_chroot.sh` might look like:
+
+#!/bin/bash
+
+Example commands to run in chroot
+apt-get update
+apt-get install -y build-essential
+make
+
+
+Adjust the script as needed for your specific build and compilation tasks.
+
+== Additional Information
+
+For more details, visit the official repository at:
+https://github.com/OpenHD/OpenHD-ChrootCompiler
+
+Feel free to contribute to the project or report any issues you encounter.
+
+== License
+
+This project is licensed under the terms of the GPL-3.0 license . For more information, see the `LICENSE` file in the repository.
+
+== Legal
+
+All logos, names, and brands belong to OpenHD and are not permitted to be used by individuals who are not affiliated with OpenHD.
