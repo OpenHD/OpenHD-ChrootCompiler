@@ -63,7 +63,8 @@ for partition in $(lsblk -rno NAME,TYPE | grep 'part$' | awk '{print "/dev/" $1}
 done
 
 mount
-touch /host/opt/file.txt
+sudo touch /host/opt/file.txt
+
 
 # cd additionalFiles
 # bash build_chroot.sh
