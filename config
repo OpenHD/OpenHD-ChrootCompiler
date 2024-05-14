@@ -1,3 +1,2 @@
 # Output image name
 IMG_NAME=OpenHD
-OPENHD_PACKAGE="openhd"
