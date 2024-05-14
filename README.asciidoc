@@ -14,11 +14,14 @@ The ChrootCompiler is a tool designed to compile software directly on images exe
 
 First, clone the ChrootCompiler repository and set up the necessary files:
 
+[source,bash]
+----
 git clone https://github.com/OpenHD/OpenHD-ChrootCompiler
 mkdir -p OpenHD-ChrootCompiler/additionalFiles
 cp YOURFILES OpenHD-ChrootCompiler/additionalFiles/
 echo $CLOUDSMITH_API_KEY > OpenHD-ChrootCompiler/additionalFiles/cloudsmith_api_key.txt
 touch build_chroot.sh OpenHD-ChrootCompiler/additionalFiles/
+----
 
 - Replace `YOURFILES` with the files you need to include.
 - Ensure you have your `CLOUDSMITH_API_KEY` ready and place it in the `additionalFiles` directory.
@@ -27,13 +30,18 @@ touch build_chroot.sh OpenHD-ChrootCompiler/additionalFiles/
 
 Update your system and install the required dependencies:
 
+[source,bash]
+----
 sudo apt update
 sudo bash install_dep.sh
+----
 
 Then, run the build script with the necessary parameters:
 
+[source,bash]
+----
 sudo bash ./build.sh x20 $API_KEY DISTRO FLAVOR
-
+----
 
 - `x20` is an example parameter for the script.
 - Replace `$API_KEY` with your actual API key.
@@ -47,13 +55,15 @@ Any commands listed in the `build_chroot.sh` file will be executed within the Ch
 
 Here is an example of what your `build_chroot.sh` might look like:
 
+[source,bash]
+----
 #!/bin/bash
 
 Example commands to run in chroot
 apt-get update
 apt-get install -y build-essential
 make
-
+----
 
 Adjust the script as needed for your specific build and compilation tasks.
 
