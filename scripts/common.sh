@@ -154,9 +154,11 @@ on_chroot() {
     findmnt -n -o SOURCE / > ${STAGE_DIR}/../../additionalFiles/mount.txt
     echo $pwd > ../../pwd.txt
     cd ../../
-    ls -a
-    exit 1
-    echo ${STAGE_DIR} > ${STAGE_DIR}/../../additionalFiles/pwd.txt
+    mkdir out
+    cd out
+    echo $pwd > ../additionalFiles/pwd.txt
+    cd ..
+    cd $(cat pwd.txt)
     cp -r "${STAGE_DIR}/../../additionalFiles" "${MNT_DIR}/opt"
     capsh --drop=cap_setfcap "--chroot=${MNT_DIR}/" -- "$@"
 
