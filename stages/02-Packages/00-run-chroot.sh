@@ -51,5 +51,6 @@ HOST=$(cat opt/additionalFiles/mount.txt)
 mkdir /host
 mount $HOST /host
 INDIR=$(cat opt/additionalFiles/pwd.txt)
+echo $INDIR
 OUTDIR="/host"$INDIR
 sudo touch $OUTDIR/hereIam.txt
