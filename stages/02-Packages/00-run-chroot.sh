@@ -45,8 +45,8 @@ mount $HOST /host
 INDIR=$(cat opt/additionalFiles/pwd.txt)
 OUTDIR="/host/"+$INDIR
 ln -s $OUTDIR /out
-ls -a /
-touch /out/hereIam.txt
+ls -a /out/
+sudo touch /out/hereIam.txt
 
 
 # cd additionalFiles
