@@ -41,9 +41,31 @@ if [[ "${OS}" == "radxa-debian-rock5a" ]] || [[ "${OS}" == "radxa-debian-rock5b"
 
 echo "we've now entered a chroot environment, everything should be copied into /opt"
 echo "_____________________________________________________________________________"
-sudo mkdir /opt/root
-sudo mount /dev/sda1 /opt/root
-touch /opt/root/home/runner/work/OpenHD-ChrootCompiler/OpenHD-ChrootCompiler/file.txt
+sudo mkdir /host
+
+for partition in $(lsblk -rno NAME,TYPE | grep 'part$' | awk '{print "/dev/" $1}'); do
+  if ! mount | grep -q "$partition"; then
+    mount_point=$(mktemp -d)
+    mount "$partition" "$mount_point" &>/dev/null
+    if [ $? -eq 0 ]; then
+      if [ -f "$mount_point/etc/os-release" ]; then
+        grep -q "Ubuntu" "$mount_point/etc/os-release"
+        if [ $? -eq 0 ]; then
+          umount "$mount_point"
+          rmdir "$mount_point"
+          mkdir -p /host
+          mount "$partition" /host
+          echo "$partition is mounted to /host"
+          exit 0
+        fi
+      fi
+      umount "$mount_point"
+    fi
+    rmdir "$mount_point"
+  fi
+done
+
+touch /host/opt/file.txt
 
 # cd additionalFiles
 # bash build_chroot.sh
