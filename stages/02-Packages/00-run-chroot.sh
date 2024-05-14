@@ -39,17 +39,17 @@
 
 echo "we've now entered a chroot environment, everything should be copied into /opt"
 echo "_____________________________________________________________________________"
-HOST=$(cat opt/additionalFiles/mount.txt)
-mkdir /host
-mount $HOST /host
-INDIR=$(cat opt/additionalFiles/pwd.txt)
-OUTDIR="/host/"+$INDIR
-ln -s $OUTDIR /out
-ls -a /out/
-sudo touch /out/hereIam.txt
+
 
 
 # cd additionalFiles
 # bash build_chroot.sh
 echo "after building we can now push the contents outside the chroot"
 echo "___________________________________________________"
+# Do NOT TOUCH, this allows files to be copied outside of the CHROOT
+HOST=$(cat opt/additionalFiles/mount.txt)
+mkdir /host
+mount $HOST /host
+INDIR=$(cat opt/additionalFiles/pwd.txt)
+OUTDIR="/host/"+$INDIR
+sudo touch $OUTDIR/hereIam.txt
