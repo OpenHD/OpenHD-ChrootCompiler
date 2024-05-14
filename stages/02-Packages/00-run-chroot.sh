@@ -40,6 +40,7 @@
 echo "we've now entered a chroot environment, everything should be copied into /opt"
 echo "_____________________________________________________________________________"
 HOSTDIR=$(cat opt/additionalFiles/dir.txt)
+mkdir /host
 mount $HOSTDIR /host
 sudo touch /host/opt/file.txt
 
