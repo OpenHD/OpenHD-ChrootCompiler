@@ -16,44 +16,44 @@ jobs:
 
 
     steps:
-    - name: Maximize build space
-      uses: easimon/maximize-build-space@master
-      with:
-        root-reserve-mb: 512
-        swap-size-mb: 10
-        remove-dotnet: 'true'
-        remove-android: 'true'
-        remove-haskell: 'true'
-        overprovision-lvm: 'true'
-    - name: remove even more
-      run: |
-        sudo apt-get purge -y \
-          '^llvm-.*' \
-          'php.*' \
-          '^mongodb-.*' \
-          '^mysql-.*' \
-          azure-cli \
-          google-chrome-stable \
-          firefox \
-          powershell \
-          microsoft-edge-stable \
-          mono-devel \
-          google-cloud-cli \
-          dotnet-sdk-8.0 \
-          dotnet-sdk-7.0 \
-          temurin-21-jdk \
-          dotnet-sdk-6.0 \
-          temurin-17-jdk \
-          temurin-11-jdk \
-          gcc-13 \
-          temurin-8-jdk \
-          g++-13 \
-          gfortran-13 \
-          cpp-13 \
-          openjdk-11-jre-headless
-        sudo df -h
-        sudo apt-get autoremove -y
-        sudo apt-get clean
+    # - name: Maximize build space
+    #   uses: easimon/maximize-build-space@master
+    #   with:
+    #     root-reserve-mb: 512
+    #     swap-size-mb: 10
+    #     remove-dotnet: 'true'
+    #     remove-android: 'true'
+    #     remove-haskell: 'true'
+    #     overprovision-lvm: 'true'
+    # - name: remove even more
+    #   run: |
+    #     sudo apt-get purge -y \
+    #       '^llvm-.*' \
+    #       'php.*' \
+    #       '^mongodb-.*' \
+    #       '^mysql-.*' \
+    #       azure-cli \
+    #       google-chrome-stable \
+    #       firefox \
+    #       powershell \
+    #       microsoft-edge-stable \
+    #       mono-devel \
+    #       google-cloud-cli \
+    #       dotnet-sdk-8.0 \
+    #       dotnet-sdk-7.0 \
+    #       temurin-21-jdk \
+    #       dotnet-sdk-6.0 \
+    #       temurin-17-jdk \
+    #       temurin-11-jdk \
+    #       gcc-13 \
+    #       temurin-8-jdk \
+    #       g++-13 \
+    #       gfortran-13 \
+    #       cpp-13 \
+    #       openjdk-11-jre-headless
+    #     sudo df -h
+    #     sudo apt-get autoremove -y
+    #     sudo apt-get clean
     - name: Setup env
       run: |
         dpkg-query -Wf '${Installed-Size}\t${Package}\n' | sort -nr | awk '{printf "%.2f MB \t %s\n", $1/(1024), $2}'
@@ -76,7 +76,7 @@ jobs:
     - name: update
       run: |
         sudo mkdir -p update
-        git clone https://github.com/openhd/openhd-imagebuilder update
+        sudo git clone https://github.com/OpenHD/OpenHD-ImageBuilder update
         tee
         mv update/images/* images/
     - name: configure
