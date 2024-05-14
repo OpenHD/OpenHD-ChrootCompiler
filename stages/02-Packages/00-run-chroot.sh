@@ -42,8 +42,9 @@ if [[ "${OS}" == "radxa-debian-rock5a" ]] || [[ "${OS}" == "radxa-debian-rock5b"
 echo "we've now entered a chroot environment, everything should be copied into /opt"
 echo "_____________________________________________________________________________"
 cd /opt
-
+sudo apt update && sudo apt install tree -y
 lsblk
+mount
 cd /
 tree
 # cd additionalFiles
