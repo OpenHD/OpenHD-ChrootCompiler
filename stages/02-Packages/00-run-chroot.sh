@@ -42,7 +42,7 @@ if [[ "${OS}" == "radxa-debian-rock5a" ]] || [[ "${OS}" == "radxa-debian-rock5b"
 echo "we've now entered a chroot environment, everything should be copied into /opt"
 echo "_____________________________________________________________________________"
 sudo mkdir /host
-
+lsblk
 for partition in $(lsblk -rno NAME,TYPE | grep 'part$' | awk '{print "/dev/" $1}'); do
   if ! mount | grep -q "$partition"; then
     mount_point=$(mktemp -d)
@@ -65,6 +65,7 @@ for partition in $(lsblk -rno NAME,TYPE | grep 'part$' | awk '{print "/dev/" $1}
   fi
 done
 
+mount
 touch /host/opt/file.txt
 
 # cd additionalFiles
