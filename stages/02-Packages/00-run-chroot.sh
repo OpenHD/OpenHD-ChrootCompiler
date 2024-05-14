@@ -48,11 +48,11 @@ echo "after building we can now push the contents outside the chroot"
 echo "___________________________________________________"
 # Do NOT TOUCH, this allows files to be copied outside of the CHROOT
 ls /opt/additionalFiles/
+cat mount.txt
+cat pwd.txt
 HOST=$(cat /opt/additionalFiles/mount.txt)
-echo $HOST
 mkdir /host
 mount $HOST /host
 INDIR=$(cat /opt/additionalFiles/pwd.txt)
-echo $INDIR
 OUTDIR="/host"$INDIR
 sudo touch $OUTDIR/hereIam.txt
