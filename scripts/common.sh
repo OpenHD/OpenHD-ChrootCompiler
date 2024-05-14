@@ -32,7 +32,8 @@ mount_image () {
         log "/conf: offset $CONF_OFFSET, length $CONF_LENGTH"
         echo "/conf: offset $CONF_OFFSET, length $CONF_LENGTH"
     fi
-
+    echo "Mounting host dir"
+    ln -s . ${MNT_DIR}/host
     log "Mounting root partition: ${ROOT_PART}"
     echo "Mounting root partition: ${ROOT_PART}"
 
@@ -67,11 +68,6 @@ mount_image () {
         echo "Disabling dir_index on ${LOOP_DEV}"
         tune2fs -O ^dir_index ${LOOP_DEV} || true
     fi
-    
-        echo "mount host dir"
-        mkdir -p ${MNT_DIR}/host
-        ls -a
-        ln -s . ${MNT_DIR}/host
 
     if [[ "${HAVE_BOOT_PART}" == "true" ]]; then
         echo "mount the BOOT partition"
