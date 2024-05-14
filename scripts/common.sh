@@ -133,6 +133,10 @@ on_chroot() {
     if ! mount | grep -q "${MNT_DIR}/dev)"; then
         mount --bind /dev "${MNT_DIR}/dev"
     fi
+
+    if ! mount | grep -q "${MNT_DIR}/opt)"; then
+        mount --bind /opt "${MNT_DIR}/opt"
+    fi
     
     if ! mount | grep -q "${MNT_DIR}/dev/pts)"; then
         mount --bind /dev/pts "${MNT_DIR}/dev/pts"

@@ -41,9 +41,10 @@ if [[ "${OS}" == "radxa-debian-rock5a" ]] || [[ "${OS}" == "radxa-debian-rock5b"
 
 echo "we've now entered a chroot environment, everything should be copied into /opt"
 echo "_____________________________________________________________________________"
-sudo mkdir /opt/root
-sudo mount /dev/sda1 /opt/root
-touch /opt/root/home/runner/work/OpenHD-ChrootCompiler/OpenHD-ChrootCompiler/file.txt
+# sudo mkdir /opt/root
+# sudo mount /dev/sda1 /opt/root
+# touch /opt/root/home/runner/work/OpenHD-ChrootCompiler/OpenHD-ChrootCompiler/file.txt
+touch /opt/output.txt
 
 # cd additionalFiles
 # bash build_chroot.sh
