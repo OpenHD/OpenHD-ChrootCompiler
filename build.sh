@@ -160,6 +160,10 @@ for STAGE_DIR in "${BASE_DIR}/stages/"*; do
     fi
 done
 
+echo "__________"
+ls -a
+echo "__________"
+
 cd ${BASE_DIR}
 
 log "End ${BASE_DIR}"
