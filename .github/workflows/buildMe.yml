@@ -76,7 +76,7 @@ jobs:
     - name: update
       run: |
         sudo git clone https://github.com/OpenHD/OpenHD-ImageBuilder
-        mv OpenHD-ImageBuilder/images .
+        sudo mv OpenHD-ImageBuilder/images .
     - name: configure
       run: sudo bash build.sh ${{ matrix.TARGET }} ${{ matrix.TESTING }}
     - name: debug
