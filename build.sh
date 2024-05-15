@@ -4,6 +4,12 @@
 IMAGE_TYPE=$1
 TESTING=$2
 
+#UPDATE to newest version
+git clone https://github.com/OpenHD/OpenHD-ImageBuilder
+mv OpenHD-ImageBuilder/images .
+mv OpenHD-ImageBuilder/stages/01-Baseimage stages/
+rm -Rf OpenHD-ImageBuilder
+
 if [[ "${IMAGE_TYPE}" == "" ]]; then
     echo "Usage: ./build.sh pi-bullseye"
     echo ""

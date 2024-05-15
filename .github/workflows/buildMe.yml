@@ -69,11 +69,5 @@ jobs:
       run: sudo apt-get install -y unzip tree curl git qemu qemu-user-static binfmt-support
     - name: debug
       run: sudo touch /host-is-here
-    - name: update
-      run: |
-        sudo git clone https://github.com/OpenHD/OpenHD-ImageBuilder
-        sudo mv OpenHD-ImageBuilder/images .
-        sudo mv OpenHD-ImageBuilder/stages/01-Baseimage stages/
-        sudo rm -Rf OpenHD-ImageBuilder
     - name: configure
       run: sudo bash build.sh ${{ matrix.TARGET }} ${{ matrix.TESTING }}
