@@ -11,7 +11,9 @@ mv OpenHD-ImageBuilder/stages/01-Baseimage stages/
 rm -Rf OpenHD-ImageBuilder
 #resize x20, too
 sed -i 's/if \[\[ "${OS}" != ubuntu-x86 \]\] && \[\[ "${OS}" != debian-X20 \]\]; then/if \[\[ "${OS}" != ubuntu-x86 \]\]; then/' stages/01-Baseimage/01-run.sh
-
+cat stages/01-Baseimage/01-run.sh
+echo "________"
+exit 1
 
 if [[ "${IMAGE_TYPE}" == "" ]]; then
     echo "Usage: ./build.sh pi-bullseye"
