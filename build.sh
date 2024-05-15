@@ -167,6 +167,9 @@ for STAGE_DIR in "${BASE_DIR}/stages/"*; do
 done
 
 cd ${BASE_DIR}
-if [ -z "$(ls -A out 2>/dev/null)" ]; then echo "---------------> build failed :(" && exit 1; fi
-echo "---------------> build successful  :)"
+if [ -z "$(ls -A out/*.deb 2>/dev/null)" ]; then
+    echo "---------------> build failed :(" && exit 1
+else
+    echo "---------------> build successful :)"
+fi
 log "End ${BASE_DIR}"
