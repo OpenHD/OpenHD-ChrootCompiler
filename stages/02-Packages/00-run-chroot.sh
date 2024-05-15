@@ -55,7 +55,7 @@ echo "we've now entered a chroot environment, everything should be copied into /
 echo "_____________________________________________________________________________"
 
 
-
-cd additionalFiles
+ls -a
+cd /opt/additionalFiles
 bash build_chroot.sh
 
