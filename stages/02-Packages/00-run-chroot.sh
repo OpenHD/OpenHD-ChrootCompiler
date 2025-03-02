@@ -16,8 +16,28 @@ echo "_______________________Starting build____________________________"
 
 if [[ "${OS}" == "radxa-debian-rock5a" ]] || [[ "${OS}" == "radxa-debian-rock5b" ]]; then
  #fix radxa's fuckup
- sudo apt-key del E572249A33EB9743 5D93177D0752732A; wget -qO - https://radxa-repo.github.io/bullseye/public.key | sudo tee /usr/share/keyrings/radxa-apt-keyring.gpg >/dev/null; echo "deb [signed-by=/usr/share/keyrings/radxa-apt-keyring.gpg] https://radxa-repo.github.io/bullseye bullseye main" | sudo tee /etc/apt/sources.list.d/radxa.list; sudo apt-get update
- sudo apt update
+# Remove old Radxa repository from sources.list
+sudo sed -i '/radxa-repo.github.io/d' /etc/apt/sources.list
+
+# Remove any old Radxa repository list files
+sudo rm -f /etc/apt/sources.list.d/radxa.list /etc/apt/sources.list.d/70-radxa.list
+
+# Remove outdated keys
+sudo apt-key del E572249A33EB9743 5D93177D0752732A
+
+# Download and install the new Radxa keyring
+keyring="$(mktemp)"
+version="$(curl -Ls https://github.com/radxa-pkg/radxa-archive-keyring/releases/latest/download/VERSION)"
+curl -L --output "$keyring" "https://github.com/radxa-pkg/radxa-archive-keyring/releases/latest/download/radxa-archive-keyring_${version}_all.deb"
+sudo dpkg -i "$keyring"
+rm -f "$keyring"
+
+# Add the updated repository to sources.list
+echo "deb [signed-by=/usr/share/keyrings/radxa-archive-keyring.gpg] https://radxa-repo.github.io/bullseye/ bullseye main" | sudo tee -a /etc/apt/sources.list
+
+# Update package lists
+echo "UPDATING___________"
+sudo apt update
     PLATFORM_PACKAGES_HOLD="linux-image-rock-5b radxa-system-config-rtk-btusb-dkms r8125-dkms 8852bu-dkms 8852be-dkms task-rockchip radxa-system-config-rockchip linux-image-rock-5a linux-image-5.10.110-6-rockchip linux-image-5.10.110-11-rockchip"
      echo "Holding back platform-specific packages..."
     for package in ${PLATFORM_PACKAGES_HOLD}; do
