@@ -37,6 +37,8 @@ echo "deb [signed-by=/usr/share/keyrings/radxa-archive-keyring.gpg] https://radx
 
 # Update package lists
 echo "UPDATING___________"
+sudo sed -i 's|https://deb.debian.org/debian|http://archive.debian.org/debian|g' /etc/apt/sources.list
+sudo sed -i '/security.debian.org/d' /etc/apt/sources.list
 sudo apt update
     PLATFORM_PACKAGES_HOLD="linux-image-rock-5b radxa-system-config-rtk-btusb-dkms r8125-dkms 8852bu-dkms 8852be-dkms task-rockchip radxa-system-config-rockchip linux-image-rock-5a linux-image-5.10.110-6-rockchip linux-image-5.10.110-11-rockchip"
      echo "Holding back platform-specific packages..."
@@ -47,6 +49,7 @@ sudo apt update
             echo "Failed to hold ${package}!"
         fi
     done
+
  echo "everything is now setup for compiling"
  fi
  if [ -f "/etc/apt/sources.list.d/nvidia-l4t-apt-source.list" ]; then sudo sed -i 's|deb https://repo.download.nvidia.com/jetson/<SOC> r35.5 main|deb https://repo.download.nvidia.com/jetson/t194 r35.5 main|' /etc/apt/sources.list.d/nvidia-l4t-apt-source.list; fi
