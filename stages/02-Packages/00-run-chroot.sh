@@ -42,29 +42,36 @@ if [[ "${OS}" == "radxa-debian-rock5a" ]] || [[ "${OS}" == "radxa-debian-rock5b"
 
   echo "UPDATING___________"
 
-  # ---------- APT PREFLIGHT FOR ROCK5 (Bullseye archive + backports fallback) ----------
+  # ---------- APT PREFLIGHT FOR ROCK5 (Bullseye archive + robust fallbacks) ----------
   normalize_bullseye_sources() {
     sudo mkdir -p /etc/apt/sources.list.d
     sudo touch /etc/apt/sources.list
 
-    # Switch deb.debian.org and security to archive mirrors (all lists)
+    # 1) Point Debian base & updates/backports to archive.debian.org
     sudo sed -i -E \
       -e 's|https?://deb\.debian\.org/debian|http://archive.debian.org/debian|g' \
-      -e 's|https?://security\.debian\.org/debian-security|http://archive.debian.org/debian-security|g' \
       /etc/apt/sources.list || true
-
     sudo find /etc/apt/sources.list.d -name '*.list' -print0 2>/dev/null \
       | xargs -0 -r sudo sed -i -E \
-        -e 's|https?://deb\.debian\.org/debian|http://archive.debian.org/debian|g' \
-        -e 's|https?://security\.debian\.org/debian-security|http://archive.debian.org/debian-security|g'
+        -e 's|https?://deb\.debian\.org/debian|http://archive.debian.org/debian|g'
 
-    # Ensure a sane minimal bullseye set exists (append if missing)
+    # 2) Ensure debian-security points to the *live* security mirror (NOT archive)
+    sudo sed -i -E \
+      -e 's|https?://security\.debian\.org/debian-security|https://security.debian.org/debian-security|g' \
+      -e 's|http://archive\.debian\.org/debian-security|https://security.debian.org/debian-security|g' \
+      /etc/apt/sources.list || true
+    sudo find /etc/apt/sources.list.d -name '*.list' -print0 2>/dev/null \
+      | xargs -0 -r sudo sed -i -E \
+        -e 's|https?://security\.debian\.org/debian-security|https://security.debian.org/debian-security|g' \
+        -e 's|http://archive\.debian\.org/debian-security|https://security.debian.org/debian-security|g'
+
+    # 3) Ensure a sane minimal Bullseye set exists (append if missing)
     if ! grep -qE '^deb .* bullseye ' /etc/apt/sources.list; then
       cat <<'EOF' | sudo tee -a /etc/apt/sources.list >/dev/null
 deb http://archive.debian.org/debian bullseye main contrib non-free
 deb http://archive.debian.org/debian bullseye-updates main contrib non-free
 deb http://archive.debian.org/debian bullseye-backports main contrib non-free
-deb http://archive.debian.org/debian-security bullseye-security main contrib non-free
+deb https://security.debian.org/debian-security bullseye-security main contrib non-free
 EOF
     fi
   }
@@ -75,6 +82,14 @@ EOF
     sudo find /etc/apt/sources.list.d -name '*.list' -print0 2>/dev/null \
       | xargs -0 -r sudo sed -i -E '/bullseye-backports/s/^[[:space:]]*deb/# &/'
     export APT_BACKPORTS_DISABLED=1
+  }
+
+  disable_security_everywhere() {
+    echo "[apt-preflight] Disabling bullseye-security (fallback)..."
+    sudo sed -i -E '/debian-security/s/^[[:space:]]*deb/# &/' /etc/apt/sources.list || true
+    sudo find /etc/apt/sources.list.d -name '*.list' -print0 2>/dev/null \
+      | xargs -0 -r sudo sed -i -E '/debian-security/s/^[[:space:]]*deb/# &/'
+    export APT_SECURITY_DISABLED=1
   }
 
   apt_update_tolerant() {
@@ -91,10 +106,14 @@ EOF
   if ! apt_update_tolerant; then
     echo "[apt-preflight] First update failed; attempting backports disable and retry..."
     disable_backports_everywhere
-    apt_update_tolerant || {
-      echo "[apt-preflight] ERROR: apt update failed even after disabling backports."
-      exit 1
-    }
+    if ! apt_update_tolerant; then
+      echo "[apt-preflight] Still failing; disabling debian-security and retrying..."
+      disable_security_everywhere
+      apt_update_tolerant || {
+        echo "[apt-preflight] ERROR: apt update failed even after disabling backports and security."
+        exit 1
+      }
+    fi
   fi
 
   echo "[apt-preflight] Effective sources:"
