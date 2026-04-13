@@ -138,13 +138,27 @@ if [ -f "/etc/apt/sources.list.d/nvidia-l4t-apt-source.list" ]; then
 fi
 
 if [[ "${OS}" == "debian-X20" ]]; then
-  #  rm -Rf /etc/apt/sources.list.d/*
-  #  rm -Rf /etc/apt/sources.list
-  #  touch /etc/apt/sources.list
-  apt update
-  apt install -y swig gcc-arm* libpoco-dev python3-dev
-  sudo sed -i 's/deb \[signed-by=\/usr\/share\/keyrings\/openhd-release-archive-keyring.gpg\] https:\/\/dl.cloudsmith.io\/public\/openhd\/release\/deb\/debian bullseye main/deb \[signed-by=\/usr\/share\/keyrings\/openhd-release-archive-keyring.gpg\] https:\/\/dl.cloudsmith.io\/public\/openhd\/dev-release\/deb\/debian sunxi main/' /etc/apt/sources.list.d/openhd-release.list
-  sudo sed -i 's/deb \[signed-by=\/usr\/share\/keyrings\/openhd-dev-release-archive-keyring.gpg\] https:\/\/dl.cloudsmith.io\/public\/openhd\/dev-release\/deb\/debian bullseye main/deb \[signed-by=\/usr\/share\/keyrings\/openhd-dev-release-archive-keyring.gpg\] https:\/\/dl.cloudsmith.io\/public\/openhd\/release\/deb\/debian sunxi main/' /etc/apt/sources.list.d/openhd-release.list
+  export DEBIAN_FRONTEND=noninteractive
+
+  # Bullseye backports has been removed from the primary mirror and now 404s.
+  sudo sed -i -E '/bullseye-backports/s/^[[:space:]]*deb/# &/' /etc/apt/sources.list || true
+  sudo find /etc/apt/sources.list.d -name '*.list' -print0 2>/dev/null \
+    | xargs -0 -r sudo sed -i -E '/bullseye-backports/s/^[[:space:]]*deb/# &/' || true
+
+  apt-get \
+    -o Acquire::Retries=2 \
+    -o Acquire::http::Timeout=20 \
+    -o Acquire::https::Timeout=20 \
+    update
+  apt-get install -y swig gcc-arm* libpoco-dev python3-dev
+
+  OPENHD_RELEASE_LIST="/etc/apt/sources.list.d/openhd-release.list"
+  if [ -f "${OPENHD_RELEASE_LIST}" ]; then
+    sudo sed -i 's/deb \[signed-by=\/usr\/share\/keyrings\/openhd-release-archive-keyring.gpg\] https:\/\/dl.cloudsmith.io\/public\/openhd\/release\/deb\/debian bullseye main/deb \[signed-by=\/usr\/share\/keyrings\/openhd-release-archive-keyring.gpg\] https:\/\/dl.cloudsmith.io\/public\/openhd\/dev-release\/deb\/debian sunxi main/' "${OPENHD_RELEASE_LIST}"
+    sudo sed -i 's/deb \[signed-by=\/usr\/share\/keyrings\/openhd-dev-release-archive-keyring.gpg\] https:\/\/dl.cloudsmith.io\/public\/openhd\/dev-release\/deb\/debian bullseye main/deb \[signed-by=\/usr\/share\/keyrings\/openhd-dev-release-archive-keyring.gpg\] https:\/\/dl.cloudsmith.io\/public\/openhd\/release\/deb\/debian sunxi main/' "${OPENHD_RELEASE_LIST}"
+  else
+    echo "[debian-X20] ${OPENHD_RELEASE_LIST} not found, skipping release list rewrite."
+  fi
 fi
 
 if [[ "${OS}" == "radxa-debian-rock-cm3" ]]; then
