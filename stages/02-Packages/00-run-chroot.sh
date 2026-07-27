@@ -22,11 +22,14 @@ if [[ "${OS}" == "radxa-debian-rock5a" ]] || [[ "${OS}" == "radxa-debian-rock5b"
   # Remove old Radxa repository from sources.list
   sudo sed -i '/radxa-repo.github.io/d' /etc/apt/sources.list || true
 
-  # Remove any old Radxa repository list files
-  sudo rm -f /etc/apt/sources.list.d/radxa.list /etc/apt/sources.list.d/70-radxa.list || true
+  # Disable any old Radxa repository entries before adding the signed source.
+  sudo find /etc/apt/sources.list.d -name '*.list' -print0 2>/dev/null \
+    | xargs -0 -r sudo sed -i -E '/radxa-repo\.github\.io/s/^[[:space:]]*deb/# deb/' || true
+  sudo find /etc/apt/sources.list.d -name '*.sources' -print0 2>/dev/null \
+    | xargs -0 -r sudo sed -i -E '/URIs:.*radxa-repo\.github\.io/,/^$/s/^/# /' || true
 
   # Remove outdated keys (ignore errors if already gone)
-  sudo apt-key del E572249A33EB9743 5D93177D0752732A >/dev/null 2>&1 || true
+  sudo apt-key del E572249A33EB9743 5D93177D0752732A 67A474DD40402951 >/dev/null 2>&1 || true
 
   # Download and install the new Radxa keyring
   keyring="$(mktemp)"
@@ -35,10 +38,8 @@ if [[ "${OS}" == "radxa-debian-rock5a" ]] || [[ "${OS}" == "radxa-debian-rock5b"
   sudo dpkg -i "$keyring"
   rm -f "$keyring"
 
-  # Add the updated repository to sources.list (append if missing)
-  if ! grep -q 'radxa-repo.github.io/bullseye' /etc/apt/sources.list; then
-    echo "deb [signed-by=/usr/share/keyrings/radxa-archive-keyring.gpg] https://radxa-repo.github.io/bullseye/ bullseye main" | sudo tee -a /etc/apt/sources.list
-  fi
+  # Add the updated repository as the only active Radxa source.
+  echo "deb [signed-by=/usr/share/keyrings/radxa-archive-keyring.gpg] https://radxa-repo.github.io/bullseye/ bullseye main" | sudo tee /etc/apt/sources.list.d/radxa.list
 
   echo "UPDATING___________"
 
@@ -162,9 +163,10 @@ if [[ "${OS}" == "debian-X20" ]]; then
 fi
 
 if [[ "${OS}" == "radxa-debian-rock-cm3" ]]; then
-  sudo apt-key del E572249A33EB9743 5D93177D0752732A >/dev/null 2>&1 || true
-  wget -qO - https://radxa-repo.github.io/bullseye/public.key | sudo tee /usr/share/keyrings/radxa-apt-keyring.gpg >/dev/null
-  echo "deb [signed-by=/usr/share/keyrings/radxa-apt-keyring.gpg] https://radxa-repo.github.io/bullseye bullseye main" | sudo tee /etc/apt/sources.list.d/radxa.list
+  sudo apt-key del E572249A33EB9743 5D93177D0752732A 67A474DD40402951 >/dev/null 2>&1 || true
+  sudo sed -i -E '\|^[[:space:]]*deb[[:space:]]+(\[[^]]+\][[:space:]]+)?https?://radxa-repo\.github\.io/bullseye/?[[:space:]]+bullseye[[:space:]]|s/^[[:space:]]*deb/# deb/' /etc/apt/sources.list || true
+  sudo find /etc/apt/sources.list.d -name '*.list' -print0 2>/dev/null \
+    | xargs -0 -r sudo sed -i -E '\|^[[:space:]]*deb[[:space:]]+(\[[^]]+\][[:space:]]+)?https?://radxa-repo\.github\.io/bullseye/?[[:space:]]+bullseye[[:space:]]|s/^[[:space:]]*deb/# deb/' || true
   sudo apt-get update
   PLATFORM_PACKAGES_HOLD="u-boot-radxa-zero3 radxa-system-config-common radxa-system-config-kernel-cmdline-ttyfiq0 radxa-firmware radxa-system-config-bullseye 8852be-dkms task-rockchip radxa-system-config-rockchip linux-image-radxa-cm3-rpi-cm4-io linux-headers-radxa-cm3-rpi-cm4-io linux-image-5.10.160-12-rk356x linux-headers-5.10.160-12-rk356x"
   echo "Holding back platform-specific packages..."
