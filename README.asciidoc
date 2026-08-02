@@ -26,6 +26,17 @@ touch build_chroot.sh OpenHD-ChrootCompiler/additionalFiles/
 - Replace `YOURFILES` with the files you need to include.
 - Ensure you have your `CLOUDSMITH_API_KEY` ready and place it in the `additionalFiles` directory.
 
+For `x86-jammy` builds with required Artosyn support, you can also provide:
+
+- `artlink_repo.txt` (optional, defaults to OpenHD private ArtLink repo)
+- `artlink_branch.txt` (optional, default `sdk`)
+- `artlink_fetch_mode.txt` (optional, for example `git-only`)
+- `artlink_git_username.txt` + `artlink_git_token.txt`
+  or `artlink_git_auth.txt` (format `username:token` or token)
+- Optional archive inputs:
+  - `artosyn_sdk_archive.txt` (absolute path in chroot) or
+  - `artosyn_sdk.tar.gz` / `artosyn_sdk.tgz` / `artosyn_sdk.tar`
+
 === Building
 
 Update your system and install the required dependencies:
