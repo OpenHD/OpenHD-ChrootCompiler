@@ -150,7 +150,9 @@ if [[ "${OS}" == "debian-X20" ]]; then
     -o Acquire::http::Timeout=20 \
     -o Acquire::https::Timeout=20 \
     update
-  apt-get install -y swig gcc-arm* libpoco-dev python3-dev
+  apt-get install -y \
+    swig gcc-arm* libpoco-dev python3-dev \
+    libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
 
   OPENHD_RELEASE_LIST="/etc/apt/sources.list.d/openhd-release.list"
   if [ -f "${OPENHD_RELEASE_LIST}" ]; then
