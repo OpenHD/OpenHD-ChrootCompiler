@@ -154,6 +154,7 @@ if [[ "${OS}" == "debian-X20" ]]; then
     swig gcc-arm* libpoco-dev python3-dev \
     libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
   apt-mark manual libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
+  apt-mark hold libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
 
   OPENHD_RELEASE_LIST="/etc/apt/sources.list.d/openhd-release.list"
   if [ -f "${OPENHD_RELEASE_LIST}" ]; then
